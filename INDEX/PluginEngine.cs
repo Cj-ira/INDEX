@@ -80,24 +80,31 @@ namespace INDEX
         /// <param name="pluginPath">the plugin path</param>
         private void InitPlugin(string pluginPath)
         {
-            Assembly asm = Assembly.LoadFrom(pluginPath);
-
-            foreach (var type in asm.GetTypes())
+            try
             {
-                if (type.IsAssignableFrom(typeof(IPlugin)))
-                {
-                    object? contructedtype = Activator.CreateInstance(type);
+                Assembly asm = Assembly.LoadFrom(pluginPath);
 
-                    if (contructedtype != null)
+                foreach (var type in asm.GetTypes())
+                {
+                    if (type.IsAssignableFrom(typeof(IPlugin)))
                     {
-                        IPlugin plugin = (IPlugin)contructedtype;
-                        plugin.Start();
-                        plugins.Add(pluginPath, plugin);
-                        break;
+                        object? contructedtype = Activator.CreateInstance(type);
+
+                        if (contructedtype != null)
+                        {
+                            IPlugin plugin = (IPlugin)contructedtype;
+                            plugin.Start();
+                            plugins.Add(pluginPath, plugin);
+                            break;
+                        }
+                        // Todo: Probably should log this later.
+                        continue;
                     }
-                    // Todo: Probably should log this later.
-                    continue;
                 }
+            }
+            catch (Exception e)
+            {
+                // Todo: Probably should log this.
             }
         }
     }
