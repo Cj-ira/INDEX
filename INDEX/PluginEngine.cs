@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using INDEX.Plugin;
 
 namespace INDEX
@@ -51,7 +53,7 @@ namespace INDEX
         #endregion
 
 
-        // Todo:
+        // Todo: Move some methods to helper classes? clean up.
 
         /// <summary>
         /// Searches for possible plugins.
@@ -68,18 +70,35 @@ namespace INDEX
         {
             for (int i = 0; i < plugins.GetUpperBound(0); i++)
             {
-
+                InitPlugin(plugins[i]);
             }
         }
 
         /// <summary>
         /// Contructs the plugin and stores to be managed using the file path.
         /// </summary>
-        /// <param name="plugin">the plugin path</param>
-        private void InitPlugin(string plugin)
+        /// <param name="pluginPath">the plugin path</param>
+        private void InitPlugin(string pluginPath)
         {
+            Assembly asm = Assembly.LoadFrom(pluginPath);
 
+            foreach (var type in asm.GetTypes())
+            {
+                if (type.IsAssignableFrom(typeof(IPlugin)))
+                {
+                    object? contructedtype = Activator.CreateInstance(type);
+
+                    if (contructedtype != null)
+                    {
+                        IPlugin plugin = (IPlugin)contructedtype;
+                        plugin.Start();
+                        plugins.Add(pluginPath, plugin);
+                        break;
+                    }
+                    // Todo: Probably should log this later.
+                    continue;
+                }
+            }
         }
-
     }
 }
