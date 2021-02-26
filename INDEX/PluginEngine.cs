@@ -38,17 +38,23 @@ namespace INDEX
         #region Events
         private void FileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-
+            if (KVSearchnRun(plugins, e.FullPath, (x, v) => { x.Stop(); v.Remove(e.FullPath); }))
+            {
+                InitPlugin(e.FullPath);
+            }
         }
 
         private void FileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
         {
-
+            if (!KVSearchnRun(plugins, e.FullPath, (x, v) => { x.Stop(); v.Remove(e.FullPath); }))
+            {
+                // Todo: Log!
+            }
         }
 
         private void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
-
+            InitPlugin(e.FullPath);
         }
         #endregion
 
@@ -106,6 +112,26 @@ namespace INDEX
             {
                 // Todo: Probably should log this.
             }
+        }
+
+        // todo: Document and move to helper class.
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="Key"></typeparam>
+        /// <typeparam name="Value"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="key"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        private bool KVSearchnRun<Key, Value>(Dictionary<Key, Value> dictionary, Key key, Action<Value, Dictionary<Key, Value>> action)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                action.Invoke(dictionary[key], dictionary);
+                return true;
+            }
+            return false;
         }
     }
 }
