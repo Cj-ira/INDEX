@@ -9,7 +9,7 @@ namespace INDEX
     // Todo: Clean up and make more async.
 
     /// <summary>
-    /// This class is a backend class to actually manage the plugins.
+    /// This class is a backend class to manage the plugins.
     /// </summary>
     public class PluginEngine
     {
