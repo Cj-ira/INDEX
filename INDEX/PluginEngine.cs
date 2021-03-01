@@ -7,6 +7,8 @@ using INDEX.Plugin;
 namespace INDEX
 {
     // Todo: Clean up and make more async.
+    // Todo: Sandboxing and other security features.
+    // Todo: Functionality to disable-enable plugins.
 
     /// <summary>
     /// This class is a backend class to manage the plugins.
@@ -92,7 +94,7 @@ namespace INDEX
 
                 foreach (var type in asm.GetTypes())
                 {
-                    if (type.IsAssignableFrom(typeof(IPlugin)))
+                    if (typeof(IPlugin).IsAssignableFrom(type))
                     {
                         object? contructedtype = Activator.CreateInstance(type);
 
