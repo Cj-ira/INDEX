@@ -5,7 +5,7 @@ namespace INDEX
     /// <summary>
     /// Frontend interface for the library.
     /// </summary>
-    class INDEXManager
+    public class INDEXManager
     {
         private PluginEngine PluginEngine;
 
