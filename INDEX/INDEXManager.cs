@@ -13,7 +13,7 @@ namespace INDEX
         /// <summary>
         ///
         /// </summary>
-        /// <param name="pluginDirectory">the directory path to the plugins.</param>
+        /// <param name="pluginDirectory">The directory path of the plugins.</param>
         /// <param name="hotLoading">This enables plugins to be 'removed', 'added', 'modified' during runtime.</param>
         public INDEXManager(string pluginDirectory, bool hotLoading)
         {

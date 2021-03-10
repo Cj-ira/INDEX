@@ -6,7 +6,6 @@ using INDEX.Plugin;
 
 namespace INDEX
 {
-    // Todo: Clean up and make more async.
     // Todo: Sandboxing and other security features.
     // Todo: Functionality to disable-enable plugins.
 
@@ -21,7 +20,7 @@ namespace INDEX
         /// <summary>
         /// Ctors the class to a object!
         /// </summary>
-        /// <param name="pluginDirectory">The location where the plugin are located.</param>
+        /// <param name="pluginDirectory">The directory path of where the plugin are located in.</param>
         /// <param name="monitorPlugins">If enabled this class will monitor the plugin directory for changes.</param>
         public PluginEngine(string pluginDirectory, bool monitorPlugins)
         {
@@ -40,7 +39,7 @@ namespace INDEX
         #region Events
         private void FileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
         {
-            if (plugins.KVSearchnRun(e.FullPath, (x, v) => { x.Stop(); v.Remove(e.FullPath); }))
+            if (plugins.KVSearchnRun(e.FullPath, (x, v) => { x.Dispose(); v.Remove(e.FullPath); }))
             {
                 InitPlugin(e.FullPath);
             }
@@ -48,7 +47,7 @@ namespace INDEX
 
         private void FileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            if (!plugins.KVSearchnRun(e.FullPath, (x, v) => { x.Stop(); v.Remove(e.FullPath); }))
+            if (!plugins.KVSearchnRun(e.FullPath, (x, v) => { x.Dispose(); v.Remove(e.FullPath); }))
             {
                 // Todo: Log!
             }
@@ -115,5 +114,7 @@ namespace INDEX
                 // Todo: Probably should log this.
             }
         }
+
+
     }
 }

@@ -18,9 +18,17 @@ namespace TestLibrary
             Console.WriteLine($"Started, {Name} by {Author} version {Version}");
         }
 
-        public void Stop()
+        public void Dispose()
         {
             Console.WriteLine($"Stopped, {Name} by {Author} version {Version}");
+        }
+
+        public void Pause()
+        {
+        }
+
+        public void Resume()
+        {
         }
     }
 }
