@@ -6,9 +6,7 @@ namespace INDEX.Plugin
 {
     public interface IPlugin : IDisposable
     {
-        string Name { get; set; }
-        string Author { get; set; }
-        string Version { get; set; }
+        PluginData pluginData { get; set; }
 
 
         // state controllers?

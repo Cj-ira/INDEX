@@ -9,18 +9,17 @@ namespace TestLibrary
 {
     public class Entry : IPlugin
     {
-        public string Name { get => ""; set => _ = value; }
-        public string Author { get => "NillByte"; set => _ = value; }
-        public string Version { get => "0.0.1"; set => _ = value; }
+        // I don't care about any problematic code smells that this may have because this is just a test plugin.
+        public PluginData pluginData { get => new PluginData("TestLibrary", "Cj-ira", "0.0.2"); set => _ = value; }
 
         public void Start()
         {
-            Console.WriteLine($"Started, {Name} by {Author} version {Version}");
+            Console.WriteLine($"Started, {pluginData.Name} by {pluginData.Author} version {pluginData.Version}");
         }
 
         public void Dispose()
         {
-            Console.WriteLine($"Stopped, {Name} by {Author} version {Version}");
+            Console.WriteLine($"Stopped, {pluginData.Name} by {pluginData.Author} version {pluginData.Version}");
         }
 
         public void Pause()
