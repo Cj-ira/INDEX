@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace INDEX
+﻿namespace INDEX
 {
     /// <summary>
     /// Frontend interface for the library.
