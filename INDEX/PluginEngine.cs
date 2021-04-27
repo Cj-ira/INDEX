@@ -67,7 +67,7 @@ namespace INDEX
         /// </summary>
         /// <param name="pluginDirectory"></param>
         /// <returns></returns>
-        private string[] Search(string pluginDirectory) => Directory.GetFiles(pluginDirectory, "*.dll");
+        private string[] Search(string pluginDirectory) => Directory.GetFiles(pluginDirectory, "*.dll", SearchOption.AllDirectories);
 
         /// <summary>
         /// helper method for <see cref="InitPlugin(string)"/>
@@ -75,7 +75,7 @@ namespace INDEX
         /// <param name="plugins">plugin paths</param>
         private void InitPlugins(string[] plugins)
         {
-            for (int i = 0; i < plugins.GetUpperBound(0); i++)
+            for (int i = 0; i < plugins.Length; i++)
             {
                 InitPlugin(plugins[i]);
             }
@@ -115,6 +115,6 @@ namespace INDEX
             }
         }
 
-
+        //public List<PluginData> GetPlugins() => plugins.Values.
     }
 }

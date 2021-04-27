@@ -1,4 +1,7 @@
-﻿namespace INDEX
+﻿using INDEX.Plugin;
+using System.Collections.Generic;
+
+namespace INDEX
 {
     /// <summary>
     /// Frontend interface for the library.
@@ -17,5 +20,7 @@
         {
             PluginEngine = new PluginEngine(pluginDirectory, hotLoading);
         }
+
+        //public List<PluginData> GetPlugins()
     }
 }
