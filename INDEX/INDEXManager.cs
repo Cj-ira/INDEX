@@ -1,7 +1,4 @@
-﻿using INDEX.Plugin;
-using System.Collections.Generic;
-
-namespace INDEX
+﻿namespace INDEX
 {
     /// <summary>
     /// Frontend interface for the library.
